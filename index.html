@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#F6F4F0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Jasmine OS">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Jasmine Personal OS</title>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow" id="dateLabel"></div>
+      <h1>Jasmine OS</h1>
+      <p class="subtitle">Personal Operating System</p>
+    </div>
+    <button id="modeButton" class="pill">普通模式</button>
+  </header>
+
+  <main class="shell">
+    <section id="today" class="screen active">
+      <div class="hero card">
+        <div>
+          <div class="eyebrow">TODAY</div>
+          <h2 id="heroTitle">今天只做真正重要的事。</h2>
+          <p id="heroSub" class="muted"></p>
+        </div>
+        <div class="ring" id="ring"><span id="ringText">0%</span></div>
+      </div>
+
+      <div id="modeBanner"></div>
+
+      <div class="section-head"><h3>今日核心</h3><span id="doneCount">0 / 6</span></div>
+      <div id="coreTasks" class="stack"></div>
+
+      <div class="section-head"><h3>今晚护肤</h3><button class="link" data-goto="skincare">产品库</button></div>
+      <div id="tonightSkin" class="card soft"></div>
+
+      <div class="section-head"><h3>今天运动</h3><button class="link" data-goto="exercise">训练计划</button></div>
+      <div id="todayExercise" class="card soft"></div>
+
+      <div class="section-head"><h3>近 7 天</h3><span>趋势，不看完美</span></div>
+      <div class="metric-grid" id="weekMetrics"></div>
+    </section>
+
+    <section id="skincare" class="screen">
+      <div class="section-head"><h2>护肤</h2><span>先清库存，再极简</span></div>
+      <div class="segmented">
+        <button class="seg active" data-skin-tab="plan">周计划</button>
+        <button class="seg" data-skin-tab="inventory">产品库</button>
+        <button class="seg" data-skin-tab="rules">规则</button>
+      </div>
+
+      <div id="skinPlanPane"><div id="skinWeek" class="stack"></div></div>
+
+      <div id="skinInventoryPane" class="hidden">
+        <div id="inventoryNotice"></div>
+        <div id="productList" class="stack"></div>
+        <button id="addProduct" class="primary full">＋ 添加产品</button>
+      </div>
+
+      <div id="skinRulesPane" class="hidden">
+        <div class="card"><h3>互斥规则</h3>
+          <p>阿达帕林日：不叠加酸。</p>
+          <p>优色林 / 理肤泉三酸日：不叠加阿达帕林。</p>
+          <p>高浓度烟酰胺如果刺痛、泛红，降频并放到修护日。</p>
+          <p class="muted">皮肤持续刺痛、爆皮、明显泛红时，切换为纯修护。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="diet" class="screen">
+      <div class="section-head"><h2>饮食</h2><span>稳糖 + 前额叶友好</span></div>
+      <div class="card">
+        <h3>今日 4 条</h3>
+        <div id="dietItems" class="check-grid"></div>
+      </div>
+      <div class="card soft">
+        <h3>默认餐盘</h3>
+        <p>½ 蔬菜 + ¼ 蛋白质 + ¼ 主食 + 少量脂肪。</p>
+        <p>甜食尽量放在正餐后；想吃薯片时，先倒小碗，不抱袋吃。</p>
+        <p class="muted">不是戒掉喜欢的食物，而是减少“饿到失控”的机会。</p>
+      </div>
+      <div class="card">
+        <h3>情绪性进食记录</h3>
+        <div class="chips" id="emotionFoodChips"></div>
+      </div>
+    </section>
+
+    <section id="exercise" class="screen">
+      <div class="section-head"><h2>运动</h2><span>力量 + 步行</span></div>
+      <div id="exerciseCard" class="card"></div>
+      <div class="card soft">
+        <h3>最低版本</h3>
+        <p id="minimumExercise"></p>
+        <button id="minExerciseDone" class="secondary full">完成最低版本</button>
+      </div>
+      <div class="card">
+        <h3>本周训练原则</h3>
+        <p>力量训练 2–3 次 + 日常步行。出差时不追求完整训练，只保留最低版本。</p>
+      </div>
+    </section>
+
+    <section id="study" class="screen">
+      <div class="section-head"><h2>英语</h2><span>嵌入生活</span></div>
+      <div class="card">
+        <h3>输入</h3>
+        <p>通勤 / 散步：Podcast、商务英语或客户相关内容 20–30 分钟。</p>
+        <button class="secondary full study-btn" data-study="input">标记完成</button>
+      </div>
+      <div class="card">
+        <h3>输出</h3>
+        <p>跟读 / 复述 / 写 5 句 / 模拟客户沟通 10 分钟。</p>
+        <button class="secondary full study-btn" data-study="output">标记完成</button>
+      </div>
+      <div class="card soft">
+        <h3>最低版本</h3>
+        <p>听 10 分钟 + 说 3 句，也算完成。</p>
+      </div>
+    </section>
+
+    <section id="cycle" class="screen">
+      <div class="section-head"><h2>周期 / PMS</h2><span>只记录，不制造焦虑</span></div>
+      <div class="card">
+        <label>最近一次月经第一天
+          <input id="lastPeriodDate" type="date">
+        </label>
+        <label>常见周期长度（天）
+          <input id="cycleLength" type="number" min="20" max="45" value="30">
+        </label>
+        <button id="saveCycle" class="primary full">保存周期设置</button>
+      </div>
+      <div class="card soft">
+        <h3 id="cycleEstimateTitle">周期提示</h3>
+        <p id="cycleEstimateText" class="muted">填入日期后显示一个粗略周期提示。</p>
+      </div>
+      <div class="card">
+        <h3>今天状态</h3>
+        <div class="chips" id="pmsChips"></div>
+      </div>
+      <div class="note">这只是生活记录，不用于诊断或避孕。周期明显异常、痛经严重或症状加重时应咨询医生。</div>
+    </section>
+
+    <section id="sleep" class="screen">
+      <div class="section-head"><h2>睡眠</h2><span>总开关</span></div>
+      <div class="card">
+        <label>昨晚睡眠时长（小时）
+          <input id="sleepHours" type="number" min="0" max="14" step="0.1" placeholder="7.5">
+        </label>
+        <label>今晚目标上床时间
+          <input id="bedTime" type="time" value="00:00">
+        </label>
+        <button id="saveSleep" class="primary full">保存</button>
+      </div>
+      <div class="card soft">
+        <h3>睡前默认程序</h3>
+        <p>洗澡 → 护肤 → 手机离床 → 明日衣物 → 5 分钟拉伸 → 阅读 → 睡觉。</p>
+      </div>
+    </section>
+
+    <section id="review" class="screen">
+      <div class="section-head"><h2>复盘</h2><span>周 / 月趋势</span></div>
+      <div class="card">
+        <h3>本周一句话</h3>
+        <textarea id="weeklyNote" rows="4" placeholder="这周最值得保留的一件事是什么？"></textarea>
+        <button id="saveWeekly" class="primary full">保存本周复盘</button>
+      </div>
+      <div class="card">
+        <h3>近 30 天完成率</h3>
+        <div id="monthMetrics" class="metric-grid"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="screen">
+      <div class="section-head"><h2>设置</h2><span>模式、提醒、备份</span></div>
+
+      <div class="card">
+        <h3>生活模式</h3>
+        <div class="mode-grid">
+          <button class="mode-card" data-mode="normal">普通模式</button>
+          <button class="mode-card" data-mode="travel">出差模式</button>
+          <button class="mode-card" data-mode="pms">PMS 模式</button>
+          <button class="mode-card" data-mode="recovery">恢复模式</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>提醒</h3>
+        <label>晚间回顾时间 <input id="reminderTime" type="time" value="21:30"></label>
+        <button id="enableNotifications" class="secondary full">允许通知</button>
+        <p class="muted smalltext">本版可在 App 打开时按时间提醒；iPhone 后台网页通知受系统限制。可靠的后台提醒建议配合 ChatGPT 自动化或后续接入推送服务。</p>
+      </div>
+
+      <div class="card">
+        <h3>数据备份</h3>
+        <button id="exportData" class="secondary full">导出 JSON 备份</button>
+        <label class="file-label">导入 JSON 备份
+          <input id="importData" type="file" accept=".json,application/json">
+        </label>
+      </div>
+
+      <div class="card soft">
+        <h3>极简原则</h3>
+        <p>系统只帮助你减少决策，不增加 KPI。连续几天没有打开，也不需要“补打卡”。从今天继续即可。</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav active" data-target="today">今日</button>
+    <button class="nav" data-target="skincare">护肤</button>
+    <button class="nav" data-target="diet">饮食</button>
+    <button class="nav" data-target="exercise">运动</button>
+    <button class="nav" data-target="study">英语</button>
+    <button class="nav" data-target="settings">设置</button>
+  </nav>
+
+  <dialog id="modeDialog">
+    <h3>切换模式</h3>
+    <div class="mode-grid">
+      <button class="mode-card" data-dialog-mode="normal">普通</button>
+      <button class="mode-card" data-dialog-mode="travel">出差</button>
+      <button class="mode-card" data-dialog-mode="pms">PMS</button>
+      <button class="mode-card" data-dialog-mode="recovery">恢复</button>
+    </div>
+    <button id="closeMode" class="ghost full">关闭</button>
+  </dialog>
+
+  <dialog id="productDialog">
+    <form id="productForm">
+      <h3>添加产品</h3>
+      <label>产品名<input id="pName" required></label>
+      <label>类别<input id="pCategory" placeholder="修护 / 酸 / 提亮"></label>
+      <label>库存（瓶）<input id="pStock" type="number" min="0" step="0.1" value="1"></label>
+      <label>当前角色<input id="pRole" placeholder="当前主力 / 候补"></label>
+      <label>用完后回购？
+        <select id="pRepurchase"><option>待决定</option><option>是</option><option>否</option><option>可选</option></select>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" id="cancelProduct" class="ghost">取消</button>
+        <button class="primary">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
